@@ -1,0 +1,105 @@
+{% extends 'store/base.html' %}
+
+{% block content %}
+
+<section class="container" style="padding-top: 170px;">
+
+    <div class="glass-card text-center success-box">
+
+        <!-- SUCCESS ICON -->
+        <div class="checkmark">✔</div>
+
+        <h1 class="section-title">Order Confirmed!</h1>
+
+        <p class="text-light mt-3">
+            Thank you, <b>{{ order.full_name }}</b>. Your order has been successfully placed.
+        </p>
+
+        <!-- ORDER DETAILS CARD -->
+        <div class="order-summary mt-4">
+
+            <h4 class="text-light">Order Summary</h4>
+
+            <p class="text-light">
+                <strong>Order ID:</strong> #{{ order.id }}
+            </p>
+
+            <p class="text-light">
+                <strong>Total Paid:</strong>
+                <span class="text-success">£{{ order.total_price }}</span>
+            </p>
+
+            <p class="text-light">
+                <strong>Status:</strong>
+                <span class="badge-success">{{ order.status }}</span>
+            </p>
+
+        </div>
+
+        <!-- BUTTONS -->
+        <div class="mt-4 d-flex justify-content-center gap-3 flex-wrap">
+
+            <a href="/products/" class="btn btn-glow">
+                Continue Shopping
+            </a>
+
+            <a href="/orders/" class="btn btn-outline-glow">
+                View My Orders
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =========================
+     STYLES (ANIMATION UPGRADE)
+========================= -->
+<style>
+
+.success-box {
+    animation: fadeInUp 0.8s ease-in-out;
+}
+
+.checkmark {
+    font-size: 80px;
+    color: #00e676;
+    animation: pop 0.5s ease-in-out;
+}
+
+.order-summary {
+    background: rgba(255,255,255,0.05);
+    padding: 20px;
+    border-radius: 15px;
+    margin-top: 20px;
+}
+
+.badge-success {
+    background: #00e676;
+    color: black;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-weight: bold;
+}
+
+/* animations */
+@keyframes pop {
+    0% { transform: scale(0); }
+    100% { transform: scale(1); }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+</style>
+
+{% endblock %}

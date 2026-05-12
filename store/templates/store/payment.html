@@ -1,0 +1,200 @@
+{% extends 'store/base.html' %}
+
+{% block content %}
+
+<section class="container" style="padding-top: 150px; max-width: 1200px;">
+
+    <div class="row g-5 align-items-center">
+
+        <!-- PAYMENT FORM -->
+        <div class="col-lg-7">
+
+            <div class="glass-card">
+
+                <div class="mb-4">
+
+                    <h1 class="section-title">
+                        Secure Payment
+                    </h1>
+
+                    <p class="text-light">
+                        Complete your order using our secure payment system.
+                    </p>
+
+                </div>
+
+                <!-- MESSAGES -->
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-warning">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                <!-- CARD PREVIEW -->
+                <div class="glass-card mb-5"
+                     style="background: linear-gradient(135deg, #00e676, #0f3d2e);">
+
+                    <div class="d-flex justify-content-between align-items-center mb-5">
+
+                        <h4>EcoSecure Bank</h4>
+                        <h2>💳</h2>
+
+                    </div>
+
+                    <h2 class="mb-4">**** **** **** 2048</h2>
+
+                    <div class="d-flex justify-content-between">
+
+                        <div>
+                            <small>Card Holder</small>
+                            <h5>ECO CUSTOMER</h5>
+                        </div>
+
+                        <div>
+                            <small>Expires</small>
+                            <h5>12/28</h5>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- PAYMENT FORM -->
+                <form method="POST">
+
+                    {% csrf_token %}
+
+                    <div class="mb-4">
+                        <label>Cardholder Name</label>
+                        <input type="text"
+                               name="cardholder_name"
+                               class="form-control"
+                               required>
+                    </div>
+
+                    <div class="mb-4">
+                        <label>Card Number</label>
+                        <input type="text"
+                               name="card_number"
+                               class="form-control"
+                               maxlength="19"
+                               pattern="[0-9 ]{16,19}"
+                               required>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-6 mb-4">
+                            <label>Expiry Date</label>
+                            <input type="text"
+                                   name="expiry"
+                                   class="form-control"
+                                   placeholder="MM/YY"
+                                   required>
+                        </div>
+
+                        <div class="col-md-6 mb-4">
+                            <label>CVV</label>
+                            <input type="password"
+                                   name="cvv"
+                                   class="form-control"
+                                   maxlength="4"
+                                   required>
+                        </div>
+
+                    </div>
+
+                    <div class="mb-4">
+                        <label>Billing Address</label>
+                        <textarea name="billing_address"
+                                  class="form-control"
+                                  rows="3"></textarea>
+                    </div>
+
+                    <!-- SECURITY (TEXT ONLY) -->
+                    <div class="glass-card mb-4">
+
+                        <h5 class="mb-3">
+                            Payment Security
+                        </h5>
+
+                        <ul class="text-light mb-0">
+
+                            <li>CSRF protection enabled</li>
+                            <li>Session-based checkout protection</li>
+                            <li>Secure order validation</li>
+                            <li>Stock validation before payment</li>
+
+                        </ul>
+
+                    </div>
+
+                    <button type="submit" class="btn btn-glow">
+                        Pay Securely
+                    </button>
+
+                    <a href="/checkout/" class="btn btn-outline-glow ms-3">
+                        Back to Checkout
+                    </a>
+
+                </form>
+
+            </div>
+
+        </div>
+
+        <!-- ORDER SUMMARY -->
+        <div class="col-lg-5">
+
+            <div class="glass-card">
+
+                <h3 class="mb-4">Order Summary</h3>
+
+                {% for item in cart_items %}
+
+                <div class="d-flex justify-content-between mb-3">
+
+                    <div>
+                        <span>{{ item.product.name }}</span>
+                        <small class="d-block text-light">
+                            Quantity: {{ item.quantity }}
+                        </small>
+                    </div>
+
+                    <span>£{{ item.total_price }}</span>
+
+                </div>
+
+                {% endfor %}
+
+                <hr>
+
+                <div class="d-flex justify-content-between mb-4">
+
+                    <h4>Total</h4>
+                    <h4 class="text-success">£{{ total }}</h4>
+
+                </div>
+
+                <div class="glass-card text-center">
+
+                    <h1 style="font-size: 70px;">🔒</h1>
+                    <h4>Secure Payment</h4>
+
+                    <p class="text-light">
+                        Your payment information is encrypted and securely processed.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

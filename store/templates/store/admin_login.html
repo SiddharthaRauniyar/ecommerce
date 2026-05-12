@@ -1,0 +1,100 @@
+{% extends 'store/base.html' %}
+
+{% block content %}
+
+<section class="container" style="padding-top: 170px; max-width: 550px;">
+
+    <div class="glass-card">
+
+        <div class="text-center mb-5">
+
+            <div style="
+                width:120px;
+                height:120px;
+                margin:auto;
+                border-radius:50%;
+                background:linear-gradient(135deg,#00e676,#7CFFB2);
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                font-size:60px;
+                box-shadow:0 0 40px rgba(0,230,118,0.4);
+            ">
+                🛡️
+            </div>
+
+            <h1 class="section-title mt-4">Admin Login</h1>
+
+            <p class="text-light">
+                Secure access to EcoSecure Shop dashboard.
+            </p>
+
+        </div>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-warning">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <div class="mb-4">
+                <label>Admin Username</label>
+
+                <input type="text"
+                       name="username"
+                       class="form-control"
+                       placeholder="Enter admin username"
+                       required>
+            </div>
+
+            <div class="mb-4">
+                <label>Password</label>
+
+                <input type="password"
+                       name="password"
+                       class="form-control"
+                       placeholder="Enter password"
+                       required>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center mb-4">
+
+                <label>
+                    <input type="checkbox" name="remember_me">
+                    Remember Me
+                </label>
+
+               <a href="{% url 'password_reset' %}"
+   class="text-success text-decoration-none">
+
+            </div>
+
+            <button type="submit" class="btn btn-glow w-100">
+                Secure Login
+            </button>
+
+        </form>
+
+        <div class="glass-card text-center mt-5">
+
+            <h3 style="font-size:55px;">🔒</h3>
+
+            <h5>Protected Dashboard</h5>
+
+            <p class="text-light mb-0">
+                This area is restricted to authorised administrators only.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

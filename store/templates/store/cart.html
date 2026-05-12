@@ -1,0 +1,110 @@
+{% extends 'store/base.html' %}
+
+{% block content %}
+
+<section class="container" style="padding-top:150px;">
+
+    <div class="text-center mb-5">
+        <h1 class="section-title">Your Cart</h1>
+        <p class="text-light">Review your selected eco-friendly products.</p>
+    </div>
+
+    {% if cart_items %}
+
+    <div class="glass-card">
+
+        {% for item in cart_items %}
+
+        <div class="row align-items-center mb-4 border-bottom pb-4">
+
+            <!-- IMAGE -->
+            <div class="col-md-2">
+
+                {% if item.product.image %}
+                    <img src="{{ item.product.image.url }}"
+                         class="product-img"
+                         style="height:110px;"
+                         alt="{{ item.product.name }}">
+                {% else %}
+                    <div class="product-icon">🌱</div>
+                {% endif %}
+
+            </div>
+
+            <!-- PRODUCT INFO -->
+            <div class="col-md-3">
+                <h4>{{ item.product.name }}</h4>
+                <p class="text-light">{{ item.product.description }}</p>
+            </div>
+
+            <!-- QUANTITY UPDATE -->
+            <div class="col-md-3">
+
+                <form method="POST" action="{% url 'update_cart' item.product.id %}">
+                    {% csrf_token %}
+
+                    <label class="mb-2">Quantity</label>
+
+                    <div class="d-flex gap-2">
+
+                        <input type="number"
+                               name="quantity"
+                               value="{{ item.quantity }}"
+                               min="1"
+                               class="form-control"
+                               style="width:100px; border-radius:25px;">
+
+                        <button type="submit" class="btn btn-glow btn-sm">
+                            Update
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+            <!-- PRICE -->
+            <div class="col-md-2">
+                <h5 class="text-success">£{{ item.total_price }}</h5>
+            </div>
+
+            <!-- REMOVE -->
+            <div class="col-md-2">
+                <a href="{% url 'remove_from_cart' item.product.id %}"
+                   class="btn btn-outline-danger">
+                    Remove
+                </a>
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+        <!-- TOTAL -->
+        <div class="text-end mt-4">
+            <h3>Total: <span class="text-success">£{{ total }}</span></h3>
+
+            <a href="{% url 'checkout' %}" class="btn btn-glow mt-3">
+                Proceed to Checkout
+            </a>
+        </div>
+
+    </div>
+
+    {% else %}
+
+    <div class="glass-card text-center">
+        <h3>Your cart is empty.</h3>
+        <p class="text-light">Start shopping and add eco-friendly products.</p>
+
+        <a href="{% url 'products' %}" class="btn btn-glow mt-3">
+            Browse Products
+        </a>
+    </div>
+
+    {% endif %}
+
+</section>
+
+{% endblock %}

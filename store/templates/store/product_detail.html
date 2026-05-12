@@ -1,0 +1,201 @@
+{% extends 'store/base.html' %}
+
+{% block content %}
+
+<section class="container" style="padding-top:150px;">
+
+    <div class="row g-5">
+
+        <!-- LEFT: IMAGE -->
+        <div class="col-md-6">
+
+            <div class="glass-card text-center product-image-box">
+
+                {% if product.image %}
+
+                    <img src="{{ product.image.url }}"
+                         class="product-img-large"
+                         alt="{{ product.name }}">
+
+                {% else %}
+
+                    <div class="no-image-large">🌱 No Image Available</div>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+        <!-- RIGHT: PRODUCT INFO (BUY BOX STYLE) -->
+        <div class="col-md-6">
+
+            <div class="glass-card product-info-box">
+
+                <!-- CATEGORY -->
+                <span class="badge-eco">
+                    {{ product.category }}
+                </span>
+
+                <!-- TITLE -->
+                <h1 class="product-title">
+                    {{ product.name }}
+                </h1>
+
+                <!-- RATING -->
+                <div class="rating">
+                    ★★★★★ <span class="text-light">(4.8)</span>
+                </div>
+
+                <!-- DESCRIPTION -->
+                <p class="text-light mt-3">
+                    {{ product.description }}
+                </p>
+
+                <!-- PRICE -->
+                <h2 class="price mt-3">
+                    £{{ product.price }}
+                </h2>
+
+                <!-- STOCK -->
+                <p class="stock">
+                    Stock available: <b>{{ product.stock }}</b>
+                </p>
+
+
+                <!-- ECO SCORE BAR -->
+                <div class="eco-score mt-3">
+
+                    <p class="mb-1">Eco Score: {{ product.eco_score }}%</p>
+
+                    <div class="eco-bar">
+                        <div class="eco-fill"
+                             style="width: {{ product.eco_score }}%;"></div>
+                    </div>
+
+                </div>
+
+
+                <!-- ADD TO CART BOX -->
+                <form method="POST" action="/add-to-cart/{{ product.id }}/">
+
+                    {% csrf_token %}
+
+                    <div class="buy-box mt-4">
+
+                        <input type="number"
+                               name="quantity"
+                               value="1"
+                               min="1"
+                               max="{{ product.stock }}"
+                               class="qty-input">
+
+                        <button type="submit" class="btn btn-glow flex-grow">
+                            Add to Cart
+                        </button>
+
+                    </div>
+
+                </form>
+
+
+                <!-- SECONDARY ACTION -->
+                <a href="/products/" class="btn btn-outline-glow w-100 mt-3">
+                    ← Back to Products
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- STYLES -->
+<style>
+
+/* IMAGE */
+.product-img-large {
+    width:100%;
+    height:420px;
+    object-fit:cover;
+    border-radius:15px;
+}
+
+/* PLACEHOLDER */
+.no-image-large {
+    height:420px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:40px;
+    color:#aaa;
+}
+
+/* INFO BOX */
+.product-info-box {
+    padding:25px;
+}
+
+/* TITLE */
+.product-title {
+    font-size:32px;
+    font-weight:600;
+}
+
+/* RATING */
+.rating {
+    color:#ffd700;
+    margin-top:10px;
+}
+
+/* PRICE */
+.price {
+    color:#00e676;
+}
+
+/* STOCK */
+.stock {
+    color:#aaa;
+    margin-top:10px;
+}
+
+/* ECO BAR */
+.eco-bar {
+    width:100%;
+    height:10px;
+    background:#222;
+    border-radius:10px;
+    overflow:hidden;
+}
+
+.eco-fill {
+    height:100%;
+    background:#00e676;
+}
+
+/* BUY BOX */
+.buy-box {
+    display:flex;
+    gap:10px;
+    align-items:center;
+}
+
+.qty-input {
+    width:90px;
+    border-radius:20px;
+    padding:10px;
+    border:none;
+}
+
+/* BUTTON FLEX */
+.flex-grow {
+    flex:1;
+}
+
+</style>
+
+{% endblock %}

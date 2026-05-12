@@ -1,0 +1,98 @@
+{% extends 'store/base.html' %}
+
+{% block content %}
+
+<section class="container" style="padding-top: 150px;">
+
+    <div class="text-center mb-5">
+        <h1 class="section-title">Checkout</h1>
+        <p class="text-light">Enter your delivery details to place your order.</p>
+    </div>
+
+    <div class="row g-4">
+
+        <!-- DELIVERY FORM -->
+        <div class="col-md-7">
+            <div class="glass-card">
+
+                <h3 class="mb-4">Delivery Details</h3>
+
+                <form method="POST">
+                    {% csrf_token %}
+
+                    <div class="mb-3">
+                        <label>Full Name</label>
+                        <input type="text" name="full_name" class="form-control" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Email</label>
+                        <input type="email" name="email" class="form-control" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Phone</label>
+                        <input type="text" name="phone" class="form-control" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Address</label>
+                        <textarea name="address" class="form-control" rows="3" required></textarea>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-6 mb-3">
+                            <label>City</label>
+                            <input type="text" name="city" class="form-control" required>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label>Postcode</label>
+                            <input type="text" name="postcode" class="form-control" required>
+                        </div>
+
+                    </div>
+
+                    <button type="submit" class="btn btn-glow mt-3 w-100">
+                        Place Order
+                    </button>
+
+                </form>
+
+            </div>
+        </div>
+
+        <!-- ORDER SUMMARY -->
+        <div class="col-md-5">
+            <div class="glass-card">
+
+                <h3 class="mb-4">Order Summary</h3>
+
+                {% for item in cart_items %}
+
+                    <div class="d-flex justify-content-between border-bottom pb-3 mb-3">
+
+                        <div>
+                            <strong>{{ item.product.name }}</strong>
+                            <p class="mb-0 text-light">Qty: {{ item.quantity }}</p>
+                        </div>
+
+                        <span class="text-success">£{{ item.total_price }}</span>
+
+                    </div>
+
+                {% endfor %}
+
+                <h4 class="text-end">
+                    Total: <span class="text-success">£{{ total }}</span>
+                </h4>
+
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

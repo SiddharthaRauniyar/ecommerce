@@ -1,0 +1,49 @@
+{% extends 'store/base.html' %}
+
+{% block content %}
+
+<section class="container" style="padding-top: 170px; min-height: 90vh;">
+
+    <div class="glass-card text-center">
+
+        <h1 style="
+            font-size: 180px;
+            font-weight: 900;
+            background: linear-gradient(90deg,#ffb703,#ffd166,#ffe066);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+        ">
+            403
+        </h1>
+
+        <h2 class="section-title mb-4">
+            Access Denied
+        </h2>
+
+        <p class="text-light fs-5" style="max-width: 720px; margin:auto;">
+            You do not have permission to access this page.
+            Please login with the correct account or contact support.
+        </p>
+
+        <div class="my-5" style="font-size: 120px;">
+            🔒
+        </div>
+
+        <div class="d-flex justify-content-center gap-4 flex-wrap">
+
+            <a href="/" class="btn btn-glow">
+                Return Home
+            </a>
+
+            <a href="/login/" class="btn btn-outline-glow">
+                Login
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

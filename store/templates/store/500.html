@@ -1,0 +1,49 @@
+{% extends 'store/base.html' %}
+
+{% block content %}
+
+<section class="container" style="padding-top: 170px; min-height: 90vh;">
+
+    <div class="glass-card text-center">
+
+        <h1 style="
+            font-size: 180px;
+            font-weight: 900;
+            background: linear-gradient(90deg,#ff4d4d,#ff9966,#ffd166);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+        ">
+            500
+        </h1>
+
+        <h2 class="section-title mb-4">
+            Internal Server Error
+        </h2>
+
+        <p class="text-light fs-5" style="max-width: 720px; margin:auto;">
+            Something went wrong on our side.
+            Our team has been notified and is working to resolve the issue.
+        </p>
+
+        <div class="my-5" style="font-size: 120px;">
+            ⚠️
+        </div>
+
+        <div class="d-flex justify-content-center gap-4 flex-wrap">
+
+            <a href="/" class="btn btn-glow">
+                Return Home
+            </a>
+
+            <a href="/contact/" class="btn btn-outline-glow">
+                Contact Support
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

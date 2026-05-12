@@ -1,0 +1,177 @@
+{% extends 'store/base.html' %}
+
+{% block content %}
+
+<section class="container" style="padding-top: 150px; max-width: 1200px;">
+
+    <!-- HEADER -->
+    <div class="text-center mb-5">
+
+        <span class="badge-eco">
+            ⭐ Customer Reviews
+        </span>
+
+        <h1 class="section-title mt-3">
+            Product Reviews
+        </h1>
+
+        <p class="text-light fs-5">
+            Share your experience and read what other customers say.
+        </p>
+
+    </div>
+
+    <div class="row g-5">
+
+        <!-- REVIEW FORM -->
+        <div class="col-lg-5">
+
+            <div class="glass-card">
+
+                <h3 class="mb-4">
+                    Write a Review
+                </h3>
+
+                <form method="POST">
+
+                    {% csrf_token %}
+
+                    <div class="mb-4">
+
+                        <label>Your Name</label>
+
+                        <input type="text"
+                               name="name"
+                               class="form-control"
+                               placeholder="John Doe"
+                               required>
+
+                    </div>
+
+                    <div class="mb-4">
+
+                        <label>Product</label>
+
+                        <select name="product"
+                                class="form-control"
+                                required>
+
+                            <option>Eco Bottle</option>
+                            <option>Eco Bag</option>
+                            <option>Eco T-Shirt</option>
+                            <option>Eco Headphones</option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="mb-4">
+
+                        <label>Rating</label>
+
+                        <select name="rating"
+                                class="form-control"
+                                required>
+
+                            <option value="5">⭐⭐⭐⭐⭐ - Excellent</option>
+                            <option value="4">⭐⭐⭐⭐ - Very Good</option>
+                            <option value="3">⭐⭐⭐ - Good</option>
+                            <option value="2">⭐⭐ - Average</option>
+                            <option value="1">⭐ - Poor</option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="mb-4">
+
+                        <label>Your Review</label>
+
+                        <textarea name="review"
+                                  class="form-control"
+                                  rows="5"
+                                  placeholder="Write your review..."
+                                  required></textarea>
+
+                    </div>
+
+                    <button type="submit" class="btn btn-glow">
+                        Submit Review
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+        <!-- REVIEWS -->
+        <div class="col-lg-7">
+
+            <div class="glass-card mb-4">
+
+                <div class="d-flex justify-content-between align-items-center mb-3">
+
+                    <div>
+                        <h5 class="mb-1">John Doe</h5>
+                        <small class="text-light">Eco Bottle</small>
+                    </div>
+
+                    <div class="text-warning fs-5">⭐⭐⭐⭐⭐</div>
+
+                </div>
+
+                <p class="text-light mb-0">
+                    Excellent eco-friendly product. High quality and very durable.
+                    Fast delivery and secure packaging.
+                </p>
+
+            </div>
+
+            <div class="glass-card mb-4">
+
+                <div class="d-flex justify-content-between align-items-center mb-3">
+
+                    <div>
+                        <h5 class="mb-1">Emma Smith</h5>
+                        <small class="text-light">Eco T-Shirt</small>
+                    </div>
+
+                    <div class="text-warning fs-5">⭐⭐⭐⭐</div>
+
+                </div>
+
+                <p class="text-light mb-0">
+                    Comfortable and sustainable material.
+                    Really liked the quality and packaging.
+                </p>
+
+            </div>
+
+            <div class="glass-card">
+
+                <div class="d-flex justify-content-between align-items-center mb-3">
+
+                    <div>
+                        <h5 class="mb-1">David Lee</h5>
+                        <small class="text-light">Eco Headphones</small>
+                    </div>
+
+                    <div class="text-warning fs-5">⭐⭐⭐⭐⭐</div>
+
+                </div>
+
+                <p class="text-light mb-0">
+                    Great sound quality with eco-conscious design.
+                    Very impressed with the overall experience.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,120 @@
+{% extends 'store/base.html' %}
+
+{% block content %}
+
+<section class="container"
+         style="padding-top: 170px; min-height: 90vh; max-width: 900px;">
+
+    <div class="glass-card text-center">
+
+        <!-- FAILED ICON -->
+        <div class="mb-4">
+
+            <div style="
+                width:140px;
+                height:140px;
+                margin:auto;
+                border-radius:50%;
+                background:linear-gradient(135deg,#ff4d4d,#ff9966);
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                font-size:70px;
+                box-shadow:0 0 50px rgba(255,77,77,0.5);
+                animation: failedPulse 2s infinite;
+            ">
+                ✕
+            </div>
+
+        </div>
+
+        <!-- MESSAGE -->
+        <h1 class="section-title mb-4">
+            Payment Failed
+        </h1>
+
+        <p class="text-light fs-5" style="max-width:700px; margin:auto;">
+            Unfortunately your payment could not be processed.
+            Please verify your payment details and try again.
+        </p>
+
+        <!-- POSSIBLE REASONS -->
+        <div class="row mt-5 g-4">
+
+            <div class="col-md-4">
+                <div class="feature-box">
+                    <h1>💳</h1>
+                    <h5>Invalid Card</h5>
+                    <p class="text-light">
+                        Card details may be incorrect.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="feature-box">
+                    <h1>⚠️</h1>
+                    <h5>Payment Error</h5>
+                    <p class="text-light">
+                        Temporary processing issue occurred.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="feature-box">
+                    <h1>🔒</h1>
+                    <h5>Security Check</h5>
+                    <p class="text-light">
+                        Additional verification may be required.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- BUTTONS -->
+        <div class="d-flex justify-content-center gap-4 mt-5 flex-wrap">
+
+            <a href="/checkout/" class="btn btn-glow">
+                Retry Payment
+            </a>
+
+            <a href="/cart/" class="btn btn-outline-glow">
+                Return to Cart
+            </a>
+
+            <a href="/contact/" class="btn btn-outline-glow">
+                Contact Support
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+<style>
+
+@keyframes failedPulse {
+
+    0% {
+        transform: scale(1);
+        box-shadow:0 0 40px rgba(255,77,77,0.4);
+    }
+
+    50% {
+        transform: scale(1.08);
+        box-shadow:0 0 70px rgba(255,77,77,0.8);
+    }
+
+    100% {
+        transform: scale(1);
+        box-shadow:0 0 40px rgba(255,77,77,0.4);
+    }
+
+}
+
+</style>
+
+{% endblock %}

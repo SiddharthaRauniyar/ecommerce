@@ -1,0 +1,207 @@
+{% extends 'store/base.html' %}
+
+{% block content %}
+
+<section class="container" style="padding-top: 150px; max-width: 650px;">
+
+    <div class="glass-card">
+
+        <!-- HEADER -->
+
+        <div class="text-center mb-4">
+
+            <h1 class="section-title">
+                Create Account
+            </h1>
+
+            <p class="text-light">
+
+                Join EcoSecure Shop and start sustainable shopping.
+
+            </p>
+
+        </div>
+
+        <!-- MESSAGES -->
+
+        {% if messages %}
+
+            {% for message in messages %}
+
+                <div class="alert alert-warning">
+
+                    {{ message }}
+
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+        <!-- REGISTER FORM -->
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <div class="row">
+
+                <div class="col-md-6 mb-3">
+
+                    <label>
+                        First Name
+                    </label>
+
+                    <input type="text"
+                           name="first_name"
+                           class="form-control"
+                           required>
+
+                </div>
+
+                <div class="col-md-6 mb-3">
+
+                    <label>
+                        Last Name
+                    </label>
+
+                    <input type="text"
+                           name="last_name"
+                           class="form-control"
+                           required>
+
+                </div>
+
+            </div>
+
+            <div class="mb-3">
+
+                <label>
+                    Username
+                </label>
+
+                <input type="text"
+                       name="username"
+                       class="form-control"
+                       required>
+
+            </div>
+
+            <div class="mb-3">
+
+                <label>
+                    Email Address
+                </label>
+
+                <input type="email"
+                       name="email"
+                       class="form-control"
+                       required>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-6 mb-3">
+
+                    <label>
+                        Password
+                    </label>
+
+                    <input type="password"
+                           name="password1"
+                           class="form-control"
+                           required>
+
+                </div>
+
+                <div class="col-md-6 mb-3">
+
+                    <label>
+                        Confirm Password
+                    </label>
+
+                    <input type="password"
+                           name="password2"
+                           class="form-control"
+                           required>
+
+                </div>
+
+            </div>
+
+            <!-- PASSWORD RULES -->
+
+            <div class="glass-card mb-4">
+
+                <h5 class="mb-3">
+                    Password Requirements
+                </h5>
+
+                <ul class="text-light mb-0">
+
+                    <li>
+                        Minimum 8 characters
+                    </li>
+
+                    <li>
+                        Cannot be too common
+                    </li>
+
+                    <li>
+                        Cannot be entirely numeric
+                    </li>
+
+                    <li>
+                        Should contain strong characters
+                    </li>
+
+                </ul>
+
+            </div>
+
+            <div class="mb-4">
+
+                <label>
+
+                    <input type="checkbox" required>
+
+                    I agree to the Terms & Conditions
+
+                </label>
+
+            </div>
+
+            <button type="submit"
+                    class="btn btn-glow w-100">
+
+                Create Account
+
+            </button>
+
+        </form>
+
+        <!-- LOGIN LINK -->
+
+        <div class="text-center mt-4">
+
+            <p class="text-light">
+
+                Already have an account?
+
+                <a href="{% url 'login' %}"
+                   class="text-success text-decoration-none">
+
+                    Login here
+
+                </a>
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

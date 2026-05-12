@@ -1,0 +1,157 @@
+{% extends 'store/base.html' %}
+
+{% block content %}
+
+<section class="container" style="padding-top: 150px; max-width: 1200px;">
+
+{% if order %}
+
+    <!-- HEADER -->
+    <div class="d-flex justify-content-between align-items-center flex-wrap mb-5">
+
+        <div>
+
+            <span class="badge-eco">
+                📦 Order Details
+            </span>
+
+            <h1 class="section-title mt-3">
+                Order #{{ order.id }}
+            </h1>
+
+            <p class="text-light">
+                Track your order and payment information.
+            </p>
+
+        </div>
+
+        <div>
+
+            {% if order.status == 'completed' %}
+                <span class="badge bg-success px-4 py-2 fs-6">Completed</span>
+
+            {% elif order.status == 'processing' %}
+                <span class="badge bg-warning px-4 py-2 fs-6">Processing</span>
+
+            {% elif order.status == 'pending' %}
+                <span class="badge bg-secondary px-4 py-2 fs-6">Pending</span>
+
+            {% elif order.status == 'shipped' %}
+                <span class="badge bg-info px-4 py-2 fs-6">Shipped</span>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+    <div class="row g-5">
+
+        <!-- ORDER ITEMS -->
+        <div class="col-lg-8">
+
+            <div class="glass-card mb-4">
+
+                <h3 class="mb-4">Ordered Products</h3>
+
+                {% for item in order.items.all %}
+
+                <div class="d-flex justify-content-between align-items-center border-bottom pb-4 mb-4 flex-wrap">
+
+                    <div>
+
+                        <h5>{{ item.product_name }}</h5>
+
+                        <p class="text-light mb-1">
+                            Quantity: {{ item.quantity }}
+                        </p>
+
+                    </div>
+
+                    <h4 class="text-success">
+                        £{{ item.total_price }}
+                    </h4>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+        <!-- ORDER SUMMARY -->
+        <div class="col-lg-4">
+
+            <div class="glass-card mb-4">
+
+                <h3 class="mb-4">Order Summary</h3>
+
+                <div class="d-flex justify-content-between mb-3">
+                    <span>Total</span>
+                    <span>£{{ order.total_price }}</span>
+                </div>
+
+                <div class="d-flex justify-content-between mb-3">
+                    <span>Status</span>
+                    <span>{{ order.status }}</span>
+                </div>
+
+            </div>
+
+            <!-- SHIPPING -->
+            <div class="glass-card mb-4">
+
+                <h3 class="mb-4">Shipping Address</h3>
+
+                <p class="text-light mb-0">
+                    {{ order.full_name }}<br>
+                    {{ order.address }}<br>
+                    {{ order.city }}<br>
+                    {{ order.postcode }}
+                </p>
+
+            </div>
+
+            <!-- ACTIONS -->
+            <div class="glass-card text-center">
+
+                <h3 class="mb-4">Actions</h3>
+
+                <div class="d-grid gap-3">
+
+                    <a href="{% url 'invoice' order.id %}" class="btn btn-glow">
+                        Download Invoice
+                    </a>
+
+                    <a href="{% url 'track_order' order.id %}" class="btn btn-outline-glow">
+                        Track Order
+                    </a>
+
+                    {% if order.status == 'processing' or order.status == 'pending' %}
+
+                    <a href="{% url 'cancel_order' order.id %}" class="btn btn-outline-danger">
+                        Cancel Order
+                    </a>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+{% else %}
+
+    <div class="glass-card text-center">
+        <h2>No Order Found</h2>
+    </div>
+
+{% endif %}
+
+</section>
+
+{% endblock %}

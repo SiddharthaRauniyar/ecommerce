@@ -1,0 +1,194 @@
+{% extends 'store/base.html' %}
+
+{% block content %}
+
+<section class="container" style="padding-top:140px;">
+
+    <!-- HEADER -->
+    <div class="text-center mb-4">
+
+        <h1 class="section-title">All Products</h1>
+
+        <p class="text-light">Browse eco-friendly products</p>
+
+    </div>
+
+
+    <!-- SEARCH BAR -->
+    <div class="glass-card mb-4">
+
+        <input id="searchInput"
+               class="form-control"
+               placeholder="Search products...">
+
+    </div>
+
+
+    <!-- PRODUCT GRID -->
+    <div class="row g-4" id="productGrid">
+
+        {% for product in products %}
+
+        <div class="col-md-4 col-lg-3 product-item">
+
+            <div class="glass-card product-card">
+
+                <!-- IMAGE SAFE HANDLING -->
+                <div class="img-box">
+
+                    {% if product.image %}
+                        <img src="{{ product.image.url }}">
+                    {% else %}
+                        <div class="placeholder">
+                            🌱 No Image
+                        </div>
+                    {% endif %}
+
+                    <!-- WISHLIST -->
+                    <div class="wishlist" onclick="toggleWish(this)">
+                        🤍
+                    </div>
+
+                </div>
+
+
+                <!-- CONTENT -->
+                <div class="p-3">
+
+                    <h5 class="product-title">
+                        {{ product.name }}
+                    </h5>
+
+                    <div class="stars">★★★★★</div>
+
+                    <p class="desc">
+                        {{ product.description|truncatewords:12 }}
+                    </p>
+
+                    <h5 class="price">
+                        £{{ product.price }}
+                    </h5>
+
+                    <p class="stock">
+                        Stock: {{ product.stock }}
+                    </p>
+
+                    <a href="/products/{{ product.id }}/"
+                       class="btn btn-glow btn-sm w-100">
+
+                        View Product
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+
+<!-- SCRIPT -->
+<script>
+
+document.getElementById("searchInput").addEventListener("keyup", function(){
+
+    let val = this.value.toLowerCase();
+
+    document.querySelectorAll(".product-item").forEach(item => {
+
+        let name = item.querySelector(".product-title").innerText.toLowerCase();
+
+        item.style.display = name.includes(val) ? "block" : "none";
+
+    });
+
+});
+
+function toggleWish(el){
+    el.innerHTML = el.innerHTML === "🤍" ? "❤️" : "🤍";
+}
+
+</script>
+
+
+<!-- STYLES -->
+<style>
+
+/* CARD */
+.product-card {
+    transition:0.3s;
+    height:100%;
+}
+
+.product-card:hover {
+    transform:translateY(-8px);
+    box-shadow:0 0 25px rgba(0,230,118,0.3);
+}
+
+/* IMAGE */
+.img-box {
+    height:220px;
+    overflow:hidden;
+    border-radius:15px;
+    position:relative;
+    background:#111;
+}
+
+/* REAL IMAGE */
+.img-box img {
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+/* PLACEHOLDER (IMPORTANT FIX) */
+.placeholder {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100%;
+    font-size:18px;
+    color:#aaa;
+}
+
+/* WISHLIST */
+.wishlist {
+    position:absolute;
+    top:10px;
+    right:10px;
+    font-size:20px;
+    cursor:pointer;
+}
+
+/* TEXT */
+.product-title {
+    font-weight:600;
+}
+
+.desc {
+    font-size:13px;
+    color:#ccc;
+}
+
+.price {
+    color:#00e676;
+}
+
+.stars {
+    color:#ffd700;
+}
+
+.stock {
+    font-size:12px;
+    color:#aaa;
+}
+
+</style>
+
+{% endblock %}

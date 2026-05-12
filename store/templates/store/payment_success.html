@@ -1,0 +1,163 @@
+{% extends 'store/base.html' %}
+
+{% block content %}
+
+<section class="container" style="padding-top: 180px; max-width: 900px;">
+
+    <div class="glass-card text-center">
+
+        <!-- SUCCESS ICON -->
+        <div class="mb-4">
+
+            <div style="
+                width:140px;
+                height:140px;
+                margin:auto;
+                border-radius:50%;
+                background:linear-gradient(135deg,#00e676,#7CFFB2);
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                font-size:70px;
+                box-shadow:0 0 50px rgba(0,230,118,0.5);
+                animation: successPulse 2s infinite;
+            ">
+                ✓
+            </div>
+
+        </div>
+
+        <!-- SUCCESS MESSAGE -->
+        <h1 class="section-title mb-3">
+            Payment Successful
+        </h1>
+
+        <p class="text-light fs-5">
+            Your payment has been processed successfully.
+            Thank you for shopping with EcoSecure Shop.
+        </p>
+
+        <!-- ORDER DETAILS -->
+        <div class="row mt-5 g-4">
+
+            <div class="col-md-4">
+
+                <div class="feature-box">
+
+                    <h5>Order ID</h5>
+                    <h3 class="text-success">#{{ order.id }}</h3>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <div class="feature-box">
+
+                    <h5>Payment Status</h5>
+                    <h3 class="text-success">Paid</h3>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <div class="feature-box">
+
+                    <h5>Total Amount</h5>
+                    <h3 class="text-success">£{{ order.total_price }}</h3>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- SECURITY INFO -->
+        <div class="glass-card mt-5 text-start">
+
+            <h4 class="mb-4">
+                Order Security Information
+            </h4>
+
+            <div class="row g-4">
+
+                <div class="col-md-6">
+
+                    <div class="feature-box">
+
+                        <h5>🔒 Secure Payment</h5>
+
+                        <p class="text-light mb-0">
+                            Payment processed using secure validation and protected checkout session.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <div class="feature-box">
+
+                        <h5>📧 Confirmation Email</h5>
+
+                        <p class="text-light mb-0">
+                            A confirmation email has been sent to your registered email address.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- BUTTONS -->
+        <div class="d-flex justify-content-center gap-4 mt-5 flex-wrap">
+
+            <a href="/invoice/" class="btn btn-glow">
+                Download Invoice
+            </a>
+
+            <a href="/products/" class="btn btn-outline-glow">
+                Continue Shopping
+            </a>
+
+            <a href="/orders/" class="btn btn-outline-glow">
+                View Orders
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+<style>
+
+@keyframes successPulse {
+
+    0% {
+        transform: scale(1);
+        box-shadow:0 0 40px rgba(0,230,118,0.4);
+    }
+
+    50% {
+        transform: scale(1.08);
+        box-shadow:0 0 70px rgba(0,230,118,0.8);
+    }
+
+    100% {
+        transform: scale(1);
+        box-shadow:0 0 40px rgba(0,230,118,0.4);
+    }
+
+}
+
+</style>
+
+{% endblock %}

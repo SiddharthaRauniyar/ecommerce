@@ -1,0 +1,107 @@
+{% extends 'store/base.html' %}
+
+{% block content %}
+
+<section class="container" style="padding-top: 150px;">
+
+    <div class="text-center mb-5">
+        <span class="badge-eco">❤️ Saved Products</span>
+
+        <h1 class="section-title mt-3">
+            My Wishlist
+        </h1>
+
+        <p class="text-light fs-5">
+            Save your favourite eco-friendly products for later.
+        </p>
+    </div>
+
+    {% if wishlist_items %}
+
+    <div class="row g-4">
+
+        {% for item in wishlist_items %}
+
+        <div class="col-md-4">
+
+            <div class="glass-card text-center">
+
+                {% if item.product.image %}
+                    <img src="{{ item.product.image.url }}"
+                         class="product-img"
+                         alt="{{ item.product.name }}">
+                {% else %}
+                    <div style="font-size:100px;">🌱</div>
+                {% endif %}
+
+                <h4 class="mt-3">
+                    {{ item.product.name }}
+                </h4>
+
+                <p class="text-light">
+                    {{ item.product.description }}
+                </p>
+
+                <h5 class="text-success mb-4">
+                    £{{ item.product.price }}
+                </h5>
+
+                <div class="d-flex justify-content-center gap-3 flex-wrap">
+
+                    <form method="POST" action="{% url 'add_to_cart' item.product.id %}">
+                        {% csrf_token %}
+
+                        <input type="hidden" name="quantity" value="1">
+
+                        <button type="submit" class="btn btn-glow">
+                            Add to Cart
+                        </button>
+                    </form>
+
+                    <a href="{% url 'remove_from_wishlist' item.id %}"
+                       class="btn btn-outline-danger">
+
+                        Remove
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% else %}
+
+    <div class="glass-card text-center mt-5">
+
+        <div style="font-size:100px;">
+            💔
+        </div>
+
+        <h2 class="section-title">
+            Wishlist is Empty
+        </h2>
+
+        <p class="text-light">
+            Save products you love and shop later.
+        </p>
+
+        <a href="{% url 'products' %}"
+           class="btn btn-glow mt-3">
+
+            Browse Products
+
+        </a>
+
+    </div>
+
+    {% endif %}
+
+</section>
+
+{% endblock %}

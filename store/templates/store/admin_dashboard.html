@@ -1,0 +1,246 @@
+
+{% extends 'store/base.html' %}
+{% block content %}
+
+<section class="admin-wrapper">
+
+<!-- =========================
+HEADER
+========================= -->
+<div class="admin-header glass">
+
+    <div>
+        <h1>Dashboard</h1>
+        <p>Welcome back, {{ request.user.username }}</p>
+    </div>
+
+</div>
+
+<!-- =========================
+KPI CARDS
+========================= -->
+<div class="kpi-grid">
+
+    <div class="kpi-card">
+        <h3>Products</h3>
+        <p>{{ total_products }}</p>
+    </div>
+
+    <div class="kpi-card">
+        <h3>Total Orders</h3>
+        <p>{{ total_orders }}</p>
+    </div>
+
+    <div class="kpi-card">
+        <h3>Pending</h3>
+        <p>{{ pending_orders }}</p>
+    </div>
+
+    <div class="kpi-card highlight">
+        <h3>Revenue</h3>
+        <p>£{{ revenue }}</p>
+    </div>
+
+</div>
+
+<!-- =========================
+RECENT ORDERS
+========================= -->
+<div class="panel">
+
+    <h2 class="section-title">Recent Orders</h2>
+
+    <div class="order-grid">
+
+        {% for order in recent_orders %}
+
+        <div class="order-card modern" id="order-{{ order.id }}">
+
+            <!-- LEFT INFO -->
+            <div class="order-info">
+                <div class="order-id">#{{ order.id }}</div>
+                <div class="order-name">{{ order.full_name }}</div>
+            </div>
+
+            <!-- STATUS -->
+            <div class="order-status {{ order.status }}">
+                {{ order.status }}
+            </div>
+
+            <!-- PRICE -->
+            <div class="order-price">
+                £{{ order.total_price }}
+            </div>
+
+            <!-- ACTION -->
+            <div class="order-action">
+
+                <select onchange="updateOrder({{ order.id }}, this.value)">
+
+                    <option value="pending" {% if order.status == 'pending' %}selected{% endif %}>pending</option>
+                    <option value="processing" {% if order.status == 'processing' %}selected{% endif %}>processing</option>
+                    <option value="packed" {% if order.status == 'packed' %}selected{% endif %}>packed</option>
+                    <option value="shipped" {% if order.status == 'shipped' %}selected{% endif %}>shipped</option>
+                    <option value="delivered" {% if order.status == 'delivered' %}selected{% endif %}>delivered</option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+</section>
+
+<!-- =========================
+AJAX SCRIPT
+========================= -->
+<script>
+
+function updateOrder(id, status){
+
+fetch(`/admin-order-status/${id}/`, {
+method: "POST",
+headers: {
+"X-CSRFToken": "{{ csrf_token }}",
+"Content-Type": "application/x-www-form-urlencoded"
+},
+body: `status=${status}`
+})
+
+.then(res => res.json())
+.then(data => {
+
+    if(data.status === "updated"){
+
+        let el = document.querySelector(`#order-${id} .order-status`);
+        el.className = "order-status " + status;
+        el.innerText = status;
+
+    }
+
+});
+
+}
+
+</script>
+
+<!-- =========================
+FULL CSS DESIGN
+========================= -->
+<style>
+
+/* WRAPPER */
+.admin-wrapper{
+    padding:25px;
+}
+
+/* HEADER */
+.admin-header{
+    padding:20px;
+    border-radius:12px;
+    margin-bottom:20px;
+}
+
+/* KPI */
+.kpi-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+    margin-bottom:25px;
+}
+
+.kpi-card{
+    background:#111;
+    padding:20px;
+    border-radius:12px;
+    text-align:center;
+}
+
+.kpi-card.highlight{
+    background:#00e676;
+    color:black;
+}
+
+/* PANEL */
+.panel{
+    margin-top:20px;
+}
+
+/* ORDER GRID */
+.order-grid{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+/* ORDER CARD */
+.order-card.modern{
+    display:grid;
+    grid-template-columns: 1fr 140px 100px 160px;
+    align-items:center;
+
+    padding:16px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius:14px;
+
+    transition:0.25s ease;
+}
+
+.order-card.modern:hover{
+    transform:translateY(-3px);
+    background:rgba(0,230,118,0.05);
+}
+
+/* INFO */
+.order-info .order-id{
+    font-weight:bold;
+    color:#00e676;
+}
+
+.order-info .order-name{
+    font-size:14px;
+    color:#ccc;
+}
+
+/* PRICE */
+.order-price{
+    color:white;
+    font-weight:600;
+}
+
+/* STATUS */
+.order-status{
+    text-align:center;
+    padding:6px 12px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:bold;
+}
+
+/* STATUS COLORS */
+.pending{background:orange;}
+.processing{background:#3498db;}
+.packed{background:#9b59b6;}
+.shipped{background:#1abc9c;}
+.delivered{background:#00e676;}
+.cancelled{background:red;}
+
+/* SELECT */
+.order-action select{
+    padding:6px;
+    border-radius:8px;
+    background:#111;
+    color:white;
+    border:1px solid #333;
+}
+
+</style>
+
+{% endblock %}

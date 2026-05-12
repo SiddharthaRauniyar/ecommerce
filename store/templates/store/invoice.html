@@ -1,0 +1,237 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Invoice</title>
+
+    <style>
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #f4f6f9;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        /* CENTER CONTAINER */
+        .invoice {
+            width: 850px;
+            margin: 40px auto;
+            background: #fff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        /* HEADER */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+        }
+
+        .header h2 {
+            margin: 0;
+            color: #111;
+        }
+
+        .brand {
+            text-align: right;
+        }
+
+        .brand h3 {
+            margin: 0;
+            color: #00c853;
+        }
+
+        .brand small {
+            color: #777;
+        }
+
+        /* INFO SECTION */
+        .info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+        }
+
+        .box {
+            width: 48%;
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .box p {
+            margin: 6px 0;
+        }
+
+        /* TABLE */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th {
+            background: #111;
+            color: white;
+            padding: 12px;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+        }
+
+        tr:hover {
+            background: #f8f8f8;
+        }
+
+        /* TOTAL */
+        .total {
+            text-align: right;
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .total span {
+            color: #00c853;
+        }
+
+        /* BUTTONS */
+        .actions {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            cursor: pointer;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        .print-btn {
+            background: #111;
+            color: white;
+        }
+
+        .back-btn {
+            background: #00c853;
+            color: white;
+        }
+
+        /* PRINT */
+        @media print {
+            .actions {
+                display: none;
+            }
+
+            body {
+                background: white;
+            }
+
+            .invoice {
+                box-shadow: none;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="invoice">
+
+    <!-- HEADER -->
+    <div class="header">
+
+        <div>
+            <h2>INVOICE</h2>
+            <p>Order #{{ order.id }}</p>
+        </div>
+
+        <div class="brand">
+            <h3>EcoSecure Shop</h3>
+            <small>Premium Eco Store</small>
+        </div>
+
+    </div>
+
+    <!-- CUSTOMER INFO -->
+    <div class="info">
+
+        <div class="box">
+            <h4>Billing Details</h4>
+            <p><b>Name:</b> {{ order.full_name }}</p>
+            <p><b>Email:</b> {{ order.email }}</p>
+            <p><b>Phone:</b> {{ order.phone }}</p>
+        </div>
+
+        <div class="box">
+            <h4>Order Info</h4>
+            <p><b>Date:</b> {{ order.created_at }}</p>
+            <p><b>Status:</b> Paid</p>
+            <p><b>Invoice ID:</b> INV-{{ order.id }}</p>
+        </div>
+
+    </div>
+
+    <!-- TABLE -->
+    <table>
+
+        <tr>
+            <th>Product</th>
+            <th>Qty</th>
+            <th>Price</th>
+            <th>Total</th>
+        </tr>
+
+        {% for item in order.items.all %}
+
+        <tr>
+            <td>{{ item.product_name }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>£{{ item.price }}</td>
+            <td>£{{ item.total_price }}</td>
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+    <!-- TOTAL -->
+    <div class="total">
+        Grand Total: <span>£{{ order.total_price }}</span>
+    </div>
+
+    <!-- ACTIONS -->
+    <div class="actions">
+
+        <button class="btn print-btn" onclick="window.print()">
+            🖨 Print Invoice
+        </button>
+
+        <a href="/orders/">
+            <button class="btn back-btn">
+                ← Back to Orders
+            </button>
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

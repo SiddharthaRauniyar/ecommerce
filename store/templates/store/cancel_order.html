@@ -1,0 +1,105 @@
+{% extends 'store/base.html' %}
+
+{% block content %}
+
+<section class="container"
+         style="padding-top: 170px; max-width: 900px; min-height: 90vh;">
+
+    <div class="glass-card text-center">
+
+        <!-- ICON -->
+        <div class="mb-4">
+
+            <div style="
+                width:140px;
+                height:140px;
+                margin:auto;
+                border-radius:50%;
+                background:linear-gradient(135deg,#ff4d4d,#ff9966);
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                font-size:70px;
+                box-shadow:0 0 50px rgba(255,77,77,0.5);
+            ">
+                ✖
+            </div>
+
+        </div>
+
+        <!-- TITLE -->
+        <h1 class="section-title mb-4">
+            Cancel Order
+        </h1>
+
+        <p class="text-light fs-5" style="max-width:700px; margin:auto;">
+            Are you sure you want to cancel this order?
+            This action cannot be undone once confirmed.
+        </p>
+
+        <!-- ORDER INFO -->
+        <div class="glass-card mt-5 mb-5 text-start">
+
+            <div class="row">
+
+                <div class="col-md-6 mb-3">
+                    <h5>Order ID</h5>
+                    <p class="text-light">#1024</p>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <h5>Order Status</h5>
+                    <p class="text-warning">Processing</p>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <h5>Total Amount</h5>
+                    <p class="text-success">£78</p>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <h5>Payment Status</h5>
+                    <p class="text-success">Paid</p>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- FORM -->
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <div class="mb-4 text-start">
+
+                <label class="mb-2">Reason for Cancellation</label>
+
+                <textarea class="form-control"
+                          name="reason"
+                          rows="5"
+                          placeholder="Please provide a reason for cancellation..."
+                          required></textarea>
+
+            </div>
+
+            <!-- BUTTONS -->
+            <div class="d-flex justify-content-center gap-4 flex-wrap">
+
+                <button type="submit" class="btn btn-outline-danger">
+                    Confirm Cancellation
+                </button>
+
+                <a href="/profile/" class="btn btn-outline-glow">
+                    Keep Order
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</section>
+
+{% endblock %}
