@@ -79,4 +79,5 @@ EcoSecure is a modern e-commerce platform designed with a focus on:
 
 ---
 
-## 📁 Project Structure
+## 📁 Author 
+Siddhartha Gupta
